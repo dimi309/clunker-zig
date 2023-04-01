@@ -15,3 +15,16 @@ xcopy resources ..\resources /i /s /y
 mkdir ..\zig-out\bin
 xcopy resources ..\zig-out\bin\resources /i /s /y
 cd ..
+
+7z x glfw-3.3.8.zip
+if %errorlevel% neq 0 endlocal & exit /b %errorlevel%
+cd glfw-3.3.8
+mkdir build
+cd build
+cmake .. -G"Visual Studio 17 2022" -DGLFW_BUILD_EXAMPLES=OFF -DGLFW_BUILD_TESTS=OFF -DGLFW_BUILD_DOCS=OFF -DGLFW_INSTALL=OFF
+cmake --build . --config Debug
+xcopy ..\include\GLFW ..\..\include\GLFW /i /s
+copy src\Debug\glfw3.lib ..\..\lib\
+for /r %%a in (*.pdb) do @copy /y "%%a" ..\..\bin
+cd ..\..
+rmdir /Q /S glfw-3.3.8
