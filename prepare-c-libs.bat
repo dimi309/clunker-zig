@@ -25,6 +25,6 @@ cmake .. -G"Visual Studio 17 2022" -DGLFW_BUILD_EXAMPLES=OFF -DGLFW_BUILD_TESTS=
 cmake --build . --config Debug
 xcopy ..\include\GLFW ..\..\include\GLFW /i /s
 copy src\Debug\glfw3.lib ..\..\lib\
-for /r %%a in (*.pdb) do @copy /y "%%a" ..\..\bin
+for /r %%a in (*.pdb) do @copy /y "%%a" ..\..\zig-out\bin
 cd ..\..
 rmdir /Q /S glfw-3.3.8
