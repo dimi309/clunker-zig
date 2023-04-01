@@ -2,11 +2,14 @@ const std = @import("std");
 
 const c = @cImport({
     @cInclude("vulkan_helper.h");
+    @cInclude("GLFW/glfw3.h");
 });
 
 pub fn main() !void {
-    // But now in order to start we need something like glfw... There does not seem to exist
-    // something like winit for Rust for example...
+    if (c.glfwInit() != c.GLFW_TRUE) return error.GlfwInitFailed;
+    defer c.glfwTerminate();
+    std.debug.print("GLFW initialisation has succeeded.\n", .{});
+    
 }
 
 test "simple test" {

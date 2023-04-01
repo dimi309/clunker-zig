@@ -19,6 +19,7 @@ pub fn build(b: *std.build.Builder) !void {
 
     exe.addLibraryPath("lib");
     exe.linkSystemLibrary("vulkan_helper");
+    exe.linkSystemLibrary("glfw3");
     const W = std.unicode.utf8ToUtf16LeStringLiteral;
 
     if (std.os.getenvW(W("VULKAN_SDK"))) |vsdk| {
