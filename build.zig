@@ -14,6 +14,8 @@ pub fn build(b: *std.build.Builder) !void {
     const exe = b.addExecutable("clunker-zig", "src/main.zig");
     exe.setTarget(target);
     exe.setBuildMode(mode);
+    exe.linkLibC();
+    exe.addIncludePath("include");
 
     exe.addLibraryPath("lib");
     exe.linkSystemLibrary("vulkan_helper");
@@ -22,6 +24,7 @@ pub fn build(b: *std.build.Builder) !void {
     if (std.os.getenvW(W("VULKAN_SDK"))) |vsdk| {
         const alloc = std.heap.page_allocator;
         const v = try std.unicode.utf16leToUtf8Alloc(alloc, vsdk);
+        defer alloc.free(v);
         const vlib = try std.fmt.allocPrint(alloc, "{s}/Lib", .{v});
         exe.addLibraryPath(vlib);
         exe.linkSystemLibrary("vulkan-1");
