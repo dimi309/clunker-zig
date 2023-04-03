@@ -5,7 +5,7 @@ glslangValidator -V vertexShader.vert -o vertexShader.spv
 cd ..\..
 mkdir build
 cd build
-cmake .. -G"Visual Studio 17 2022"
+cmake .. -G"MinGW Makefiles" -DVH_BUILD_TESTS=OFF -DVH_NO_NATIVE_INITS=ON
 cmake --build . --config Debug
 
 xcopy include ..\..\include /i /s /y
@@ -21,10 +21,10 @@ if %errorlevel% neq 0 endlocal & exit /b %errorlevel%
 cd glfw-3.3.8
 mkdir build
 cd build
-cmake .. -G"Visual Studio 17 2022" -DGLFW_BUILD_EXAMPLES=OFF -DGLFW_BUILD_TESTS=OFF -DGLFW_BUILD_DOCS=OFF -DGLFW_INSTALL=OFF
+cmake .. -G"MinGW Makefiles" -DGLFW_BUILD_EXAMPLES=OFF -DGLFW_BUILD_TESTS=OFF -DGLFW_BUILD_DOCS=OFF -DGLFW_INSTALL=OFF -DCMAKE_MSVC_RUNTIME_LIBRARY=MultiThreaded
 cmake --build . --config Debug
 xcopy ..\include\GLFW ..\..\include\GLFW /i /s
-copy src\Debug\glfw3.lib ..\..\lib\
+copy src\Debug\glfw3.a ..\..\lib\
 for /r %%a in (*.pdb) do @copy /y "%%a" ..\..\zig-out\bin
 cd ..\..
 rmdir /Q /S glfw-3.3.8

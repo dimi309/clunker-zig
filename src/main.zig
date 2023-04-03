@@ -1,16 +1,12 @@
 const std = @import("std");
 
+// Translated from vulkan_helper.h with
+// zig translate-c -DVULKAN_HELPER_NO_NATIVE=1 -I%VULKAN_SDK%\Include vulkan_helper.h > vulkan_helper.zig
+const vh = @import("vulkan_helper.zig");
+
 const c = @cImport({
-    //@cInclude("vulkan_helper.h"); // This fails cImport probably
-    // because of the windows.h include, since windows.h  is actually
-    // what makes zig translace-c.
-    
     @cInclude("GLFW/glfw3.h"); // This produces some linking errors,
     // beyond glfw3.
-
-    // Both abovementioned problems can probably be solved but they
-    // show that zig cannot "just work with c libs". It kind of can,
-    // but it still takes quite a bit of work.
 });
 
 pub fn main() !void {
