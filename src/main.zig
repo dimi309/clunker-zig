@@ -5,8 +5,7 @@ const std = @import("std");
 const vh = @import("vulkan_helper.zig");
 
 const c = @cImport({
-    @cInclude("GLFW/glfw3.h"); // This produces some linking errors,
-    // beyond glfw3.
+    @cInclude("GLFW/glfw3.h"); 
 });
 
 pub fn main() !void {

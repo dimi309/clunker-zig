@@ -24,7 +24,7 @@ cd build
 cmake .. -G"MinGW Makefiles" -DGLFW_BUILD_EXAMPLES=OFF -DGLFW_BUILD_TESTS=OFF -DGLFW_BUILD_DOCS=OFF -DGLFW_INSTALL=OFF -DCMAKE_MSVC_RUNTIME_LIBRARY=MultiThreaded
 cmake --build . --config Debug
 xcopy ..\include\GLFW ..\..\include\GLFW /i /s
-copy src\Debug\glfw3.a ..\..\lib\
+copy src\libglfw3.a ..\..\lib\
 for /r %%a in (*.pdb) do @copy /y "%%a" ..\..\zig-out\bin
 cd ..\..
 rmdir /Q /S glfw-3.3.8
