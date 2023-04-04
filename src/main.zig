@@ -5,13 +5,16 @@ const std = @import("std");
 const vh = @import("vulkan_helper.zig");
 
 const c = @cImport({
-    @cInclude("GLFW/glfw3.h"); 
+    @cInclude("GLFW/glfw3.h");
 });
 
 pub fn main() !void {
     if (c.glfwInit() != c.GLFW_TRUE) return error.GlfwInitFailed;
     defer c.glfwTerminate();
     std.debug.print("GLFW initialisation has succeeded.\n", .{});
-    
-}
 
+    var glfwExtensionCount: u32 = 0;
+    var glfwExtensions = c.glfwGetRequiredInstanceExtensions(&glfwExtensionCount);
+
+    std.debug.print("{any}", .{glfwExtensions});
+}
