@@ -16,5 +16,11 @@ pub fn main() !void {
     var glfwExtensionCount: u32 = 0;
     var glfwExtensions = c.glfwGetRequiredInstanceExtensions(&glfwExtensionCount);
 
-    std.debug.print("{any}", .{glfwExtensions});
+    var success: c_int = vh.vh_create_instance("Vulkan zig test", glfwExtensions, glfwExtensionCount);
+    if (success == 1) {
+        std.debug.print("Vulkan Instance created!\n", .{});
+    } else {
+        std.debug.print("Failed to create vulkan instance.\n", .{});
+    }
+    defer _ = vh.vh_shutdown();
 }
